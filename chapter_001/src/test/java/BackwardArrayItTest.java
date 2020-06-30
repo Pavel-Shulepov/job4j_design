@@ -1,16 +1,15 @@
-package ru.job4j;
-
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 import org.junit.Test;
+import ru.job4j.BackwardArrayIt;
 
 import java.util.NoSuchElementException;
 
-public class ArrayItTest {
+public class BackwardArrayItTest {
     @Test
     public void whenMultiCallHasNextThenTrue() {
-        ArrayIt it = new ArrayIt(
+        BackwardArrayIt it = new BackwardArrayIt(
                 new int[] {1, 2, 3}
         );
         assertThat(it.hasNext(), is(true));
@@ -19,17 +18,17 @@ public class ArrayItTest {
 
     @Test
     public void whenReadSequence() {
-        ArrayIt it = new ArrayIt(
+        BackwardArrayIt it = new BackwardArrayIt(
                 new int[] {1, 2, 3}
         );
-        assertThat(it.next(), is(1));
-        assertThat(it.next(), is(2));
         assertThat(it.next(), is(3));
+        assertThat(it.next(), is(2));
+        assertThat(it.next(), is(1));
     }
 
     @Test(expected = NoSuchElementException.class)
     public void whenNextFromEmpty() {
-        ArrayIt it = new ArrayIt(
+        BackwardArrayIt it = new BackwardArrayIt(
                 new int[] {}
         );
         it.next();
