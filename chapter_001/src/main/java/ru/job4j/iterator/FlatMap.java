@@ -14,7 +14,10 @@ public class FlatMap<T> implements Iterator<T> {
 
     @Override
     public boolean hasNext() {
-        return iterator == null || iterator.hasNext() || this.data.hasNext();
+        while (iterator == null) {
+            iterator = data.next();
+        }
+        return iterator.hasNext() || this.data.hasNext();
     }
 
     @Override
@@ -22,7 +25,9 @@ public class FlatMap<T> implements Iterator<T> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        if (iterator == null || !iterator.hasNext()) iterator = data.next();
+        if (!iterator.hasNext()) {
+            iterator = data.next();
+        }
         return iterator.next();
     }
 
