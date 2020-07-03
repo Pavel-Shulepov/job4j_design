@@ -56,4 +56,23 @@ public class EvenIteratorTest {
         assertThat(it.hasNext(), is(true));
         assertThat(it.next(), is(8));
     }
+
+    @Test
+    public void sampleTest() {
+        it = new EvenIt(new int[]{2, 5, 7, 9});
+        assertThat(it.next(), is(2));
+        assertThat(it.hasNext(), is(false));
+    }
+
+    @Test
+    public void hasNextShouldNotChangeThePointer() {
+        it = new EvenIt(new int[]{1, 3, 6, 8, 10});
+        it.hasNext();
+        it.hasNext();
+        it.hasNext();
+        it.hasNext();
+        it.hasNext();
+        it.hasNext();
+        assertThat(it.next(), is(6));
+    }
 }
