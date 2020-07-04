@@ -79,4 +79,21 @@ public class SimpleArrayTest {
         }
     }
 
+    @Test
+    public void whenIteratorHasReachedEnd() {
+        SimpleArray<String> stringSimpleArray = new SimpleArray<>(4);
+        stringSimpleArray.add("1");
+        stringSimpleArray.add("2");
+        stringSimpleArray.add("3");
+        stringSimpleArray.add("4");
+        String deleted = stringSimpleArray.remove(1);
+        Iterator<String> iterator = stringSimpleArray.iterator();
+        int size = 0;
+        while (iterator.hasNext()) {
+            iterator.next();
+            size++;
+        }
+        assertThat(size, is(3));
+    }
+
 }

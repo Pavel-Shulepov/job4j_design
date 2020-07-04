@@ -1,13 +1,11 @@
 package ru.job4j.generic;
 
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-import java.util.Objects;
+import java.util.*;
 
 public class SimpleArray<T> {
-
     private final Object[] data;
     private int pointer = 0;
+    private int size = 0;
 
     public SimpleArray(int capacity) {
         if (capacity < 0) {
@@ -18,29 +16,34 @@ public class SimpleArray<T> {
 
     public void add(T model) {
         Objects.checkIndex(pointer, data.length);
+        size++;
         data[pointer++] = model;
     }
 
     public void set(int index, T model) {
-        Objects.checkIndex(index, data.length);
+        Objects.checkIndex(index, size);
         data[index] = model;
     }
 
     public T remove(int index) {
-        Objects.checkIndex(index, data.length);
+        Objects.checkIndex(index, size);
         T removed = get(index);
         shiftData(index);
         pointer--;
+        size--;
         return removed;
     }
 
     @SuppressWarnings("unchecked")
     public T get(int index) {
-        Objects.checkIndex(index, data.length);
+        Objects.checkIndex(index, size);
         return (T) data[index];
     }
 
     private void shiftData(int index) {
+        Object[] temp = Arrays.copyOf(data, index);
+        System.arraycopy(data, index, data, 0, data.length - index);
+        System.arraycopy(temp, 0, data, data.length - index, index);
         for (int i = index; i < data.length; i++) {
             data[index] = data[index + 1];
         }
@@ -60,7 +63,7 @@ public class SimpleArray<T> {
 
         @Override
         public boolean hasNext() {
-            return cursor < data.length;
+            return cursor < size;
         }
 
         @SuppressWarnings("unchecked")
