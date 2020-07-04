@@ -14,19 +14,19 @@ public class FlatMap<T> implements Iterator<T> {
 
     @Override
     public boolean hasNext() {
-        while (iterator == null) {
+        if (iterator == null) {
             iterator = data.next();
         }
-        return iterator.hasNext() || this.data.hasNext();
+        while (!iterator.hasNext() && data.hasNext()) {
+            iterator = data.next();
+        }
+        return data.hasNext() || iterator.hasNext();
     }
 
     @Override
     public T next() {
         if (!hasNext()) {
             throw new NoSuchElementException();
-        }
-        if (!iterator.hasNext()) {
-            iterator = data.next();
         }
         return iterator.next();
     }
