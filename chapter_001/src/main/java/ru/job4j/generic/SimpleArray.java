@@ -41,12 +41,7 @@ public class SimpleArray<T> {
     }
 
     private void shiftData(int index) {
-        Object[] temp = Arrays.copyOf(data, index);
-        System.arraycopy(data, index, data, 0, data.length - index);
-        System.arraycopy(temp, 0, data, data.length - index, index);
-        for (int i = index; i < data.length; i++) {
-            data[index] = data[index + 1];
-        }
+        System.arraycopy(data, index + 1, data, index, data.length - index - 1);
         data[data.length - 1] = null;
     }
 
