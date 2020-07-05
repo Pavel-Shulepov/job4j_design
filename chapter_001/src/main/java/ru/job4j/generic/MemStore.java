@@ -42,7 +42,12 @@ public final class MemStore<T extends Base> implements Store<T> {
     }
 
     private int getIndex(String id) {
-        return mem.indexOf(findById(id));
+        for (int i = 0; i < mem.size() - 1; i++) {
+            if (mem.get(i).getId().equals(id)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     private void checkId(T model) {
