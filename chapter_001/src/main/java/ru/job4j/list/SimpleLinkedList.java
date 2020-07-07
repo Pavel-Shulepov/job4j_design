@@ -4,11 +4,11 @@ import java.util.*;
 
 public class SimpleLinkedList<E> {
 
-    int size = 0;
-    int modCount = 0;
+    private int size = 0;
+    private int modCount = 0;
 
-    Node<E> first;
-    Node<E> last;
+    private Node<E> first;
+    private Node<E> last;
 
     public SimpleLinkedList() {
 
