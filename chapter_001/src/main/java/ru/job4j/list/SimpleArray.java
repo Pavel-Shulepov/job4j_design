@@ -1,7 +1,5 @@
 package ru.job4j.list;
 
-import jdk.internal.util.ArraysSupport;
-
 import java.util.*;
 
 public class SimpleArray<T> implements Iterable<T> {
@@ -12,6 +10,7 @@ public class SimpleArray<T> implements Iterable<T> {
 
     private static final int DEFAULT_CAPACITY = 10;
     private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {};
+    public static final int MAX_ARRAY_LENGTH = Integer.MAX_VALUE - 8;
 
 
     public SimpleArray() {
@@ -40,7 +39,7 @@ public class SimpleArray<T> implements Iterable<T> {
     private Object[] grow(int minCapacity) {
         int oldCapacity = container.length;
         if (oldCapacity > 0 || container != DEFAULTCAPACITY_EMPTY_ELEMENTDATA) {
-            int newCapacity = ArraysSupport.newLength(oldCapacity,
+            int newCapacity = newLength(oldCapacity,
                     minCapacity - oldCapacity,
                     oldCapacity >> 1);
             container = Arrays.copyOf(container, newCapacity);
@@ -48,6 +47,25 @@ public class SimpleArray<T> implements Iterable<T> {
             container = new Object[Math.max(DEFAULT_CAPACITY, minCapacity)];
         }
         return container;
+    }
+
+    private static int newLength(int oldLength, int minGrowth, int prefGrowth) {
+        int newLength = Math.max(minGrowth, prefGrowth) + oldLength;
+        if (newLength - MAX_ARRAY_LENGTH <= 0) {
+            return newLength;
+        }
+        return hugeLength(oldLength, minGrowth);
+    }
+
+    private static int hugeLength(int oldLength, int minGrowth) {
+        int minLength = oldLength + minGrowth;
+        if (minLength < 0) {
+            throw new OutOfMemoryError("Required array length too large");
+        }
+        if (minLength <= MAX_ARRAY_LENGTH) {
+            return MAX_ARRAY_LENGTH;
+        }
+        return Integer.MAX_VALUE;
     }
 
     @Override
