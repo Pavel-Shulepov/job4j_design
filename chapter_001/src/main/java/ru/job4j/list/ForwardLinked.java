@@ -20,11 +20,10 @@ public class ForwardLinked<T> implements Iterable<T> {
     }
 
     public void deleteFirst() {
-        if (head != null) {
-            head = head.next;
-        } else {
+        if (head == null) {
             throw new NoSuchElementException("Ваш список пустой!");
         }
+        head = head.next;
     }
 
     @Override
