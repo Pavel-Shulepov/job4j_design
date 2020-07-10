@@ -23,18 +23,14 @@ public class ForwardLinked<T> implements Iterable<T> {
     }
 
     public T deleteFirst() {
-        if (head == null) {
-            throw new NoSuchElementException("Ваш список пустой!");
-        }
+        checkList();
         T value = head.value;
         head = head.next;
         return value;
     }
 
     public T deleteLast() {
-        if (head == null) {
-            throw new NoSuchElementException("Ваш список пустой!");
-        }
+        checkList();
         Node<T> el = head;
         T value = el.value;
         if (head.next == null) {
@@ -50,6 +46,22 @@ public class ForwardLinked<T> implements Iterable<T> {
         return value;
     }
 
+    public void revert() {
+        checkList();
+        ForwardLinked<T> newList = new ForwardLinked<>();
+        while (!head.equals(last)) {
+            newList.add(deleteLast());
+        }
+        newList.add(deleteLast());
+        head = newList.head;
+        last = newList.last;
+    }
+
+    private void checkList() {
+        if (head == null) {
+            throw new NoSuchElementException("Ваш список пустой!");
+        }
+    }
 
     @Override
     public Iterator<T> iterator() {
