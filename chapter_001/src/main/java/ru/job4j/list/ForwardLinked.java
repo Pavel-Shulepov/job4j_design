@@ -22,11 +22,13 @@ public class ForwardLinked<T> implements Iterable<T> {
         last = node;
     }
 
-    public void deleteFirst() {
+    public T deleteFirst() {
         if (head == null) {
             throw new NoSuchElementException("Ваш список пустой!");
         }
+        T value = head.value;
         head = head.next;
+        return value;
     }
 
     public T deleteLast() {
