@@ -23,6 +23,16 @@ public class SimpleArray<T> implements Iterable<T> {
         return (T) container[index];
     }
 
+    public boolean contains(T value) {
+        boolean contain = false;
+        for (int i = 0; i < size; i++) {
+            if (container[i].equals(value)) {
+                contain = true;
+            }
+        }
+        return contain;
+    }
+
     public void add(T model) {
         modCount++;
         add(model, container, size);
