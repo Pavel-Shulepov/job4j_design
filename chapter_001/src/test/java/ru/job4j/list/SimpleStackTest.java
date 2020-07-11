@@ -36,13 +36,13 @@ public class SimpleStackTest {
 
     @Test(expected = NoSuchElementException.class)
     public void test() {
-        ForwardLinked<Integer> list = new ForwardLinked<>();
-        list.add(1);
-        list.add(2);
-        list.add(3);
-        assertThat(list.deleteLast(), is(3));
-        assertThat(list.deleteLast(), is(2));
-        assertThat(list.deleteLast(), is(1));
-        list.deleteFirst();
+        SimpleStack<Integer> stack = new SimpleStack<>();
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
+        assertThat(stack.pop(), is(3));
+        assertThat(stack.pop(), is(2));
+        assertThat(stack.pop(), is(1));
+        stack.pop();
     }
 }

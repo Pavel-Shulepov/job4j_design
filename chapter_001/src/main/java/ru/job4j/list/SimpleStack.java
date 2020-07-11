@@ -7,11 +7,11 @@ public class SimpleStack<T> {
         return linked.deleteLast();
     }
 
-    public T poll() {
-        return linked.deleteFirst();
-    }
-
     public void push(T value) {
         linked.add(value);
+    }
+
+    public boolean isEmpty() {
+        return linked.size() == 0;
     }
 }
