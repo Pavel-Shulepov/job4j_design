@@ -13,32 +13,11 @@ import java.util.NoSuchElementException;
 public class SimpleSetTest {
 
     @Test
-    public void whenAddThenGet() {
-        SimpleSet<String> array = new SimpleSet<>();
-        array.add("first");
-        String rsl = array.get(0);
-        assertThat(rsl, is("first"));
-    }
-
-    @Test
     public void whenAddThenIt() {
         SimpleSet<String> array = new SimpleSet<>();
         array.add("first");
         String rsl = array.iterator().next();
         assertThat(rsl, is("first"));
-    }
-
-    @Test(expected = IndexOutOfBoundsException.class)
-    public void whenGetEmpty() {
-        SimpleSet<String> array = new SimpleSet<>();
-        array.get(0);
-    }
-
-    @Test(expected = IndexOutOfBoundsException.class)
-    public void whenGetOutBound() {
-        SimpleSet<String> array = new SimpleSet<>();
-        array.add("first");
-        array.get(1);
     }
 
     @Test(expected = NoSuchElementException.class)
