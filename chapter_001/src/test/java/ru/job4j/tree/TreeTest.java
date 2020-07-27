@@ -1,6 +1,11 @@
 package ru.job4j.tree;
 
 import org.junit.Test;
+
+import java.util.Collections;
+import java.util.Objects;
+import java.util.Set;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
@@ -38,6 +43,7 @@ public class TreeTest {
         tree.add(2, 4);
         tree.add(2, 5);
         tree.add(5, 6);
+        
         assertThat(tree.isBinary(), is(true));
     }
 
