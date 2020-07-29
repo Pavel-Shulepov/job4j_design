@@ -4,8 +4,11 @@ import static org.junit.Assert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 import io.LogFilter;
+import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class LogFilterTest {
@@ -17,6 +20,12 @@ public class LogFilterTest {
     @Test
     public void testReadAndFilterFileLines() {
         assertThat(LogFilter.filter("log.txt"), is(resultList));
+    }
+
+    @Test
+    public void whenSaveResultToFileThenRead() throws IOException {
+        LogFilter.save(LogFilter.filter("log.txt"), "404.txt");
+        assertThat(FileUtils.readLines(new File("404.txt")), is(resultList));
     }
 
 }
