@@ -17,17 +17,17 @@ public class EvenNumberFileTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
 
-    private final String out = "1\r\n"
-            + "5\r\n"
-            + "15\r\n"
-            + "8 - четное \r\n"
-            + "10 - четное \r\n"
-            + "16 - четное \r\n"
-            + "17\r\n"
-            + "13\r\n"
-            + "11\r\n"
-            + "19\r\n"
-            + "20 - четное \r\n";
+    private final String out = "1\n"
+            + "5\n"
+            + "15\n"
+            + "8 - четное \n"
+            + "10 - четное \n"
+            + "16 - четное \n"
+            + "17\n"
+            + "13\n"
+            + "11\n"
+            + "19\n"
+            + "20 - четное \n";
 
     @Before
     public void setUpStreams() {
