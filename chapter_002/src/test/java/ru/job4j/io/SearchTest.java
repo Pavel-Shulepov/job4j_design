@@ -19,7 +19,7 @@ public class SearchTest {
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
 
-    List<String> result = List.of("1.java", "2.java");
+    List<String> result = List.of("1.java", "1.txt", "1.xml");
 
     @Before
     public void setUp() throws IOException {
@@ -31,7 +31,7 @@ public class SearchTest {
 
     @Test
     public void searchTest() throws IOException {
-        List<Path> paths = Search.search(folder.getRoot().toPath(), "java");
+        List<Path> paths = Search.search(folder.getRoot().toPath(), "1");
         assertThat(paths.stream().map(p -> p.getFileName().toString()).collect(Collectors.toList()), is(result));
     }
 

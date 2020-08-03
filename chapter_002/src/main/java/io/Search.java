@@ -16,8 +16,8 @@ public class Search {
         search(start, "java").forEach(System.out::println);
     }
 
-    public static List<Path> search(Path root, String ext) throws IOException {
-        SearchFiles searcher = new SearchFiles(ext);
+    public static List<Path> search(Path root, String pattern) throws IOException {
+        SearchFiles searcher = new SearchFiles(pattern);
         Files.walkFileTree(root, searcher);
         return searcher.getSearchPaths();
     }
@@ -42,7 +42,7 @@ public class Search {
 
         @Override
         public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
-            if (file.toAbsolutePath().toString().endsWith("." + pattern)) {
+            if (file.toFile().getName().contains(pattern)) {
                 searchPaths.add(file.toAbsolutePath());
             }
             return CONTINUE;
