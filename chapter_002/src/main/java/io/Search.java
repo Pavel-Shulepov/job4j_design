@@ -5,6 +5,7 @@ import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import static java.nio.file.FileVisitResult.CONTINUE;
 
@@ -17,7 +18,7 @@ public class Search {
     }
 
     public static List<Path> search(Path root, String pattern) throws IOException {
-        SearchFiles searcher = new SearchFiles(pattern);
+        SearchFiles searcher = new SearchFiles(p -> p.toFile().getName().contains(pattern));
         Files.walkFileTree(root, searcher);
         return searcher.getSearchPaths();
     }
@@ -25,14 +26,14 @@ public class Search {
     private static class SearchFiles implements FileVisitor<Path> {
 
         private final List<Path> searchPaths = new ArrayList<>();
-        private final String pattern;
+        private final Predicate<Path> predicate;
 
         public List<Path> getSearchPaths() {
             return searchPaths;
         }
 
-        public SearchFiles(String pattern) {
-            this.pattern = pattern;
+        public SearchFiles(Predicate<Path> predicate) {
+            this.predicate = predicate;
         }
 
         @Override
@@ -42,7 +43,7 @@ public class Search {
 
         @Override
         public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
-            if (file.toFile().getName().contains(pattern)) {
+            if (predicate.test(file)) {
                 searchPaths.add(file.toAbsolutePath());
             }
             return CONTINUE;
