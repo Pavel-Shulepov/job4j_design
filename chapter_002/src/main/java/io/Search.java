@@ -12,9 +12,14 @@ import static java.nio.file.FileVisitResult.CONTINUE;
 public class Search {
 
     public static void main(String[] args) throws IOException {
-        Path start = Paths.get("d:\\Java");
+
+        if (args.length < 2) {
+            throw new IllegalArgumentException("Root folder or search pattern is null. Usage java -jar dir.jar ROOT_FOLDER PATTERN.");
+        }
+
+        Path start = Paths.get(args[0]);
         System.out.println("Идет поиск, ждите...");
-        search(start, "java").forEach(System.out::println);
+        search(start, args[1]).forEach(System.out::println);
     }
 
     public static List<Path> search(Path root, String pattern) throws IOException {
