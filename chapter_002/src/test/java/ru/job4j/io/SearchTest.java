@@ -19,7 +19,7 @@ public class SearchTest {
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
 
-    List<String> result = List.of("1.java", "1.txt", "1.xml");
+    List<String> result = List.of("1.xml", "1.txt", "1.java");
 
     @Before
     public void setUp() throws IOException {
