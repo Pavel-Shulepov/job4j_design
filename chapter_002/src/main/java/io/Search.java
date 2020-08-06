@@ -23,7 +23,14 @@ public class Search {
     }
 
     public static List<Path> search(Path root, String pattern) throws IOException {
-        SearchFiles searcher = new SearchFiles(p -> p.toFile().getName().contains(pattern));
+        return doSearch(root, new SearchFiles(p -> p.toFile().getName().contains(pattern)));
+    }
+
+    public static List<Path> exSearch(Path root, String pattern) throws IOException {
+        return doSearch(root, new SearchFiles(p -> !p.toFile().getName().contains(pattern)));
+    }
+
+    private static List<Path> doSearch(Path root, SearchFiles searcher) throws IOException {
         Files.walkFileTree(root, searcher);
         return searcher.getSearchPaths();
     }
