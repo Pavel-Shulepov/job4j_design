@@ -14,7 +14,7 @@ public class EchoServer {
 
     private static final Logger LOG = LoggerFactory.getLogger(EchoServer.class.getName());
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         try (ServerSocket server = new ServerSocket(9000)) {
             boolean byeAction = false;
             while (!byeAction) {
@@ -31,11 +31,15 @@ public class EchoServer {
                         } else if (str.contains("msg=Hello")) {
                             out.write("Hello, dear friend!".getBytes());
                         } else if (str.contains("msg=")) {
-                            out.write(str.split("=")[1].replaceFirst(" HTTP/1.1", "").getBytes());
+                            out.write(str.split("=")[2].replaceFirst(" HTTP/1.1", "").getBytes());
                         }
                     }
+                } catch (Exception e) {
+                    LOG.debug("Ошибка {}", e.toString());
                 }
             }
+        } catch (Exception e) {
+            LOG.debug("Ошибка {}", e.toString());
         }
     }
 
