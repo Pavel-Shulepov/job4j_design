@@ -1,5 +1,8 @@
 package io;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,6 +11,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class EchoServer {
+
+    private static final Logger LOG = LogManager.getLogger(UsageLog4j.class.getName());
 
     public static void main(String[] args) throws IOException {
         try (ServerSocket server = new ServerSocket(9000)) {
@@ -18,7 +23,7 @@ public class EchoServer {
                      BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
                     String str;
                     while (!(str = in.readLine()).isEmpty()) {
-                        System.out.println(str);
+                        LOG.debug(str);
                         if (str.contains("msg=Exit")) {
                             out.write("Goodbye!".getBytes());
                             byeAction = true;
