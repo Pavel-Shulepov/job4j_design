@@ -7,7 +7,8 @@ select * from product p
 select * from product p where p."name" like '%мороженное%'
 
 --3. Написать запрос, который выводит все продукты, срок годности которых заканчивается в следующем месяце.
-select * from product p where Extract(MONTH from p.expired_date) - Extract(MONTH from pg_catalog.now()) = 1
+select * from product p where p.expired_date >= DATE_TRUNC('month', CURRENT_DATE) + INTERVAL '1 MONTH' AND
+      expired_date < DATE_TRUNC('month', CURRENT_DATE) + INTERVAL '2 MONTH'
 
 --4. Написать запрос, который выводит самый дорогой продукт.
 SELECT * FROM product p
